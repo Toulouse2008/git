@@ -1,0 +1,29 @@
+1，昨日内容回顾及作业讲解
+列表：增 append  insert extend
+      删 remove pop clear del
+      改 li[索引] = '被修改的内容'  li[切片]：'被修改的内容'
+      查 for循环
+      range
+      元祖：
+      count()
+      len()
+      li.index('元素')
+      sort（reverse = True）
+      li.sort()
+      print(li.sort())
+      reverse()反转
+      ps:
+         join:  list ----->str
+                S.join(iterable)
+                    li = [1,2,3]
+                    s1 = str(li)
+         split  str---->list
+
+     作业讲解：
+
+
+
+2，字典
+3，字典的增删改查
+4，字典的嵌套
+

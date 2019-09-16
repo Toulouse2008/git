@@ -1,0 +1,67 @@
+1，文件操作。
+    模特主妇护士老师.txt
+    1,文件路径：d:\模特主妇护士老师.txt
+    2,编码方式：utf-8 gbk 。。。。
+    3，操作方式：只读，只写，追加，读写，写读.....
+        以什么编码方式储存的文件，就以什么编码打开进行操作。
+
+
+    只读：r
+          rb
+        f = open('模特主妇护士班主任',mode='r',encoding='utf-8')
+        content = f.read()
+        print(content,type(content))
+        f.close()
+
+        # f = open('模特主妇护士班主任',mode='rb',)
+        # content = f.read()
+        # print(content)
+        # f.close()
+
+        r+ 读写
+        r+b 读写（以bytes类型）
+        # f = open('log',mode='r+',encoding='utf-8')
+        # print(f.read())
+        # f.write('大猛，小孟')
+        # f.close()
+
+        f = open('log',mode='r+b')
+        print(f.read())
+        f.write('大猛，小孟'.encode('utf-8'))
+        f.close()
+
+    只写：w
+          wb
+    # 先将源文件的内容全部清除，在写。
+    # f = open('log',mode='w',encoding='utf-8')
+    # f.write('附近看到类似纠纷')
+    # f.close()
+
+    f = open('log',mode='wb')
+    f.write('附近看到类似纠纷'.encode('utf-8'))
+    f.close()
+    w+
+    # f = open('log',mode='w+',encoding='utf-8')
+    # f.write('aaa')
+    # f.seek(0)
+    # print(f.read())
+    # f.close()
+    w+b
+    .......
+
+
+    追加
+        # f = open('log',mode='a',encoding='utf-8')
+        # f.write('佳琪')
+        # f.close()
+
+        # f = open('log',mode='ab')
+        # f.write('佳琪'.encode('utf-8'))
+        # f.close()
+
+
+2，编码。
+
+
+
+3，试卷讲解。

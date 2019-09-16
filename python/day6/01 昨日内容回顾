@@ -1,0 +1,23 @@
+dict: dic = {'name':'alex'}
+增：dic['age'] = 21 存在就覆盖
+dic.setdefault() 没有就增加
+
+删除：pop（）按照key删除，有返回值
+    clear
+    del dic['name']
+    popitem()随机删除 返回的是元祖
+
+改  update
+
+查
+dic.keys()
+dic.values()
+dic.items()
+
+for k,v in dic.items():
+    print(k,v)
+
+dic.get(key,None)
+
+
+
