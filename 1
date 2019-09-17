@@ -1,0 +1,180 @@
+待测试的类(Widget.py)
+
+# Widget.py 
+# Python 2.7.6 
+  
+class Widget: 
+  def __init__(self, size = (40,40)): 
+    self.size = size 
+  def getSize(self): 
+    return self.size 
+  def reSize(self,width,height): 
+    if width <0 or height < 0: 
+      raise ValueError, 'illegal size'
+    else: 
+      self.size = (width,height) 
+      return self.size 
+  def dispose(self): 
+    pass
+    
+测试类(Auto.py)
+# coding=utf8 
+# Auto.dy 
+# Python 2.7.6 
+  
+from Widget import Widget #导入测试类模块Widget 
+import unittest      #导入unittest模块  
+  
+  
+class WidgetTestCase(unittest.TestCase): 
+#让所有执行测试的类都继承于TestCase类，可以将TestCase看成是对特定类进行测试的方法的集合 
+  
+  #在setUp()方法中进行测试前的初始化工作。 
+  def setUp(self):   
+    self.widget = Widget() 
+  
+  #并在tearDown()方法中执行测试后的清除工作，setUp()和tearDown()都是TestCase类中定义的方法。 
+  def tearDown(self): 
+    self.widget = None
+  
+  #测试Widget类中getSize方法 
+  def testgetSize(self): 
+    print "Test GetSize"
+    #对Widget类中getSize()方法的返回值和预期值进行比较，确保两者是相等的， 
+    #assertEqual()也是TestCase类中定义的方法。 
+    self.assertEqual(self.widget.getSize(), (40, 40)) 
+      
+  #测试Widget类中reSize方法 
+  def testreSize(self): 
+    print "Test Resize"
+    #对Widget类中reSize()方法的返回值和预期值进行比较，确保两者是相等的。 
+    #assertEqual()也是TestCase类中定义的方法。 
+    self.assertEqual(self.widget.reSize(50,100),(50,100)) 
+    
+  
+#提供名为suite()的全局方法，PyUnit在执行测试的过程调用suit()方法来确定有多少个测试用例需要被执行， 
+#可以将TestSuite看成是包含所有测试用例的一个容器。 
+def suite(): 
+  suite = unittest.TestSuite() 
+  suite.addTest(WidgetTestCase("testgetSize"))#往此添加需要测试的方法testgetSize() 
+  suite.addTest(WidgetTestCase("testreSize")) #往此添加需要测试的方法testreSize() 
+  return suite  
+  
+if __name__ == "__main__": 
+  unittest.main(defaultTest = 'suite') #在主函数中调用全局方法. 
+测试结果:
+
+D:\Python>python27 Auto.py 
+Test GetSize 
+.Test Resize 
+. 
+------------------------------
+Ran 2 tests in 0.004s
+  
+OK 
+总结:
+1。第一步:先写好测试类
+2。第二步:导入unittest模块及测试的类，运用setup()方法做测试前的准备工作，如建立数据库连接，运用teardown()方法做测试后的清除工作，如取消数据库的链接，再对类中的方法逐一做测试。
+3。第三步: 写suite()的全局方法，将要测试的方法，一一加入。
+测试结果，有几个测试用例就有几个. 最后显示OK，表示通过。
+
+
+
+
+https://www.jb51.net/article/65856.htm
+https://www.jb51.net/article/130033.htm
+https://www.jb51.net/article/137748.htm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://zhuanlan.zhihu.com/p/32054217
+unittest又名PyUnit， Python单元测试框架（The Python unit testing framework），简称为PyUnit。自从 Python 2.1 版本后，PyUnit成为 Python标准库的一部分。
+
+为什么需要使用unittest单元测试框架？
+
+当我们写的用例越来越多时，我们就需要考虑用例编写的规范、组织与管理，以便于后期的维护，而python-unittest正是这样一款工具。我们这里用一个简单示例来展示用unittest脚本是什么样子的。
+
+创建计算器类calculator
+
+# Calculator.py
+class calculator(object):
+   def __init__(self, a, b):
+       self.a = a
+       self.b = b
+
+   def add(self):
+       return (self.a + self.b)
+
+   def minus(self):
+       return (self.a - self.b)
+
+   def multip(self):
+       return (self.a * self.b)
+
+   def divide(self):
+       return (self.a / self.b)
+创建一个简单的单元测试用例
+
+import unittest  # 导入unittest  包
+from unittest_doc.com.Calculator.Calculator import calculator  # 引入需要测试的包
+
+# 所有用例需继承TestCase类或者其子类
+class simple_test(unittest.TestCase):
+   def setUp(self):
+       print('@@@初始化test_simple@@@')
+       self.a = calculator(1, 2)
+
+   def test_add(self):
+       print('---测试用例test_simple add---')
+       self.assertEqual(self.a.minus(), -1, '两值不相等')
+       self.assertEqual(self.a.add(), 3, '两值不相等')
+       self.assertNotEqual(self.a.divide(), 1, '两值不相等')
+
+   def test_divide(self):
+       print('---测试用例test_simple divide---')
+       self.assertEqual(self.a.divide(), 0.5)
+
+   def tearDown(self):
+       print('@@@结束test_simple@@@')
+
+if __name__ == '__main__':
+   unittest.main()
+运行结果：
+
+@@@初始化test_simple@@@
+---测试用例test_simple add---
+@@@结束test_simple@@@
+@@@初始化test_simple@@@
+---测试用例test_simple divide---
+@@@结束test_simple@@@
+测试用例由setUp(),test_add(),test_divide(),tearDown() 4个部分组成，它们放在一个继承于unittest.TestCase 的测试类下。
+
+仔细观察输出结果，每个用例运行前都会运行 setUp()，结束后会运行tearDown()，从这里应该能够看出他们两的作用。
+
+setUp() 用于测试用例执行前的准备工作。
+如测试用例中需要访问数据库，可以在setUp中建立数据库连接并进行初始化；用例需要使用web，可以先实例化浏览器；app测试需先要启动app，可先实例化app。
+
+tearDown() 用于用例执行之后的善后工作。如关闭数据库连接，关闭浏览器，关闭app。当用例没运行成功是他也会执行。
+
+test_add(),test_divide() 测试脚本，必须已test开头或者结尾，如用unittest.main()方法执行用例，需要已test开头。
+一个TestCase 的实例就是一个测试用例。测试用例就是一个完整的测试流程，包括测试前准备环境的搭建(setUp)，实现测试过程的代码(run)，以及测试后环境的还原(tearDown)。
+
+单元测试(unittest)的本质也就在这里，一个测试用例是一个完整的测试单元，通过运行这个测试单元，可以对某一个功能进行验证。
